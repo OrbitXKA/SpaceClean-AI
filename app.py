@@ -1,8 +1,20 @@
-!git clone https://github.com/ultralytics/yolov5
-%cd yolov5
-!pip install -r requirements.txt
-!cp space.png /content/yolov5/
-!ls
-!python detect.py --weights yolov5s.pt --source space.png
-from IPython.display import Image, display
-display(Image(filename='runs/detect/exp/space.png'))
+import torch
+from pathlib import Path
+import subprocess
+def run_detection(image_path):
+    print("Starting Space Debris Detection using YOLOv5...")
+      # Run YOLOv5 detect script
+    command = [
+        "python", "detect.py",
+        "--weights", "yolov5s.pt",
+        "--source", image_path
+    ]
+    subprocess.run(command)
+    print("Detection complete.")
+
+if _name_ == "_main_":
+    image_file = "space.png"
+    if Path(image_file).exists():
+        run_detection(image_file)
+    else:
+        print("Image file not found.")
